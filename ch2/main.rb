@@ -2,11 +2,11 @@ require 'sinatra'
 require "sinatra/reloader" if development?
 
 get '/' do
-  erb :home
+erb :home
 end
 
 __END__
-@@home
+@@layout
 <% title="Songs By Sinatra" %>
 <!doctype html>
 <html lang="en">
@@ -16,17 +16,20 @@ __END__
 </head>
 <body>
   <header>
-<h1><%= title %></h1>
+    <h1><%= title %></h1>
     <nav>
       <ul>
         <li><a href="/" title="Home">Home</a></li>
         <li><a href="/about" title="About">About</a></li>
         <li><a href="/contact" title="Contact">Contact</a></li>
-</ul> </nav>
+      </ul>
+    </nav>
   </header>
   <section>
-    <p>Welcome to this website all about the songs of the great
-      Frank Sinatra</p>
+    <%= yield %>
   </section>
 </body>
 </html>
+@@home
+<p>Welcome to this website that's all about the songs of the great
+  Frank Sinatra.</p>
