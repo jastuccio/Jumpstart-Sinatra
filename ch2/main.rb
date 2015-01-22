@@ -1,13 +1,25 @@
 require 'sinatra'
-require "sinatra/reloader" if development?
+require 'slim'
+require 'sass'
+require 'shotgun'
+
+get('/styles.css'){ scss :styles }
 
 get '/' do
-  erb :home
+  slim :home
 end
 
 get '/about' do
-  erb :about
+  @title = "All About This Website"
+  slim :about
 end
+
 get '/contact' do
-  erb :contact
+  @title = "Contact"
+  slim :contact
+end
+
+not_found do
+  @title = "404 Error"
+  slim :not_found
 end
