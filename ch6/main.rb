@@ -5,6 +5,8 @@ require './song'
 require 'sinatra/flash'
 require 'pony'
 require './sinatra/auth'
+require 'v8'
+require 'coffee-script'
 
 configure do
   enable :sessions
@@ -26,7 +28,6 @@ configure :production do
       :email_user_name => ENV['SENDGRID_USERNAME'],
       :email_password => ENV['SENDGRID_PASSWORD'],
       :email_domain => 'heroku.com'
-end
 end
 
 before do
@@ -65,7 +66,11 @@ helpers do
         :authentication       => :plain,
         :domain               => 'localhost.localdomain'          
       })
+  end
 end
+
+get('/styles.css'){ scss :styles }
+get('/javascripts/application.js'){ coffee :application }
 
 # grab the name entered in the URL and store it in the params hash
 get '/set/:name' do
